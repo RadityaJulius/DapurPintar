@@ -230,50 +230,7 @@ export default function RecipeHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
-      {/* Navbar */}
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-[#009966] font-bold text-xl">
-            <ChefHat className="w-8 h-8" />
-            <span>DapurPintar</span>
-          </div>
-          <div className="hidden md:flex gap-6 text-sm font-medium text-gray-500">
-            <a href="/u" className="hover:text-[#009966] transition-colors">
-              Dashboard
-            </a>
-            <a href="/u/history" className="text-[#009966] font-semibold">
-              History
-            </a>
-            <a href="/u/saved" className="hover:text-[#009966] transition-colors">
-              Saved Recipes
-            </a>
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="hover:text-[#009966] transition-colors flex items-center gap-1"
-              >
-                Profile <ChevronDown className="w-4 h-4" />
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      router.push("/");
-                      setIsDropdownOpen(false);
-                    }}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-
+    <div>
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-10">

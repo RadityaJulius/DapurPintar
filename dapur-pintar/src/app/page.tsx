@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ChefHat,
   Camera,
@@ -9,14 +9,14 @@ import {
   Menu,
   X,
   Leaf,
-  Smartphone,
-  ArrowLeft,
+  Smartphone
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import PricingCard from "@/components/PricingCard";
+import FeatureCard from "@/components/FeatureCard";
 
 export default function DapurPintarApp() {
-  // State to simulate routing between pages: 'landing', 'login', 'register'
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -275,124 +275,6 @@ export default function DapurPintarApp() {
           </div>
         </div>
       </footer>
-    </div>
-  );
-}
-
-// --- AUTH COMPONENTS (Indonesian) ---
-
-function AuthLayout({
-  children,
-  onBack,
-}: {
-  children: React.ReactNode;
-  onBack: () => void;
-}) {
-  return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-emerald-200 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-orange-100 rounded-full blur-3xl opacity-40"></div>
-      </div>
-
-      <div className="absolute top-6 left-6 z-10">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-slate-500 hover:text-emerald-600 transition font-medium px-4 py-2 rounded-lg hover:bg-white/50"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          <span>Kembali ke Beranda</span>
-        </button>
-      </div>
-
-      <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
-        <div className="flex justify-center mb-6">
-          <div className="bg-emerald-600 p-3 rounded-xl shadow-lg shadow-emerald-600/20">
-            <ChefHat className="h-10 w-10 text-white" />
-          </div>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-// --- SUBCOMPONENTS ---
-
-function FeatureCard({
-  icon,
-  title,
-  desc,
-  underDevelopment = false,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  underDevelopment?: boolean;
-}) {
-  return (
-    <div className={`p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl hover:shadow-emerald-600/5 transition duration-300 ${underDevelopment ? 'opacity-60' : ''}`}>
-      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-4">
-        {icon}
-      </div>
-      <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-        {title}
-        {underDevelopment && (
-          <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full font-medium">
-            Sedang Dikerjakan
-          </span>
-        )}
-      </h3>
-      <p className="text-slate-600 leading-relaxed">{desc}</p>
-    </div>
-  );
-}
-
-function PricingCard({
-  title,
-  price,
-  period,
-  features,
-  buttonText,
-  popular = false,
-}: {
-  title: string;
-  price: string;
-  period: string;
-  features: string[];
-  buttonText: string;
-  popular?: boolean;
-}) {
-  const router = useRouter();
-  return (
-    <div className={`p-8 rounded-2xl bg-white border ${popular ? 'border-emerald-300 shadow-xl shadow-emerald-600/10' : 'border-slate-100'} hover:shadow-xl hover:shadow-emerald-600/5 transition duration-300 relative`}>
-      {popular && (
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-          Paling Populer
-        </div>
-      )}
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-slate-900 mb-2">{title}</h3>
-        <div className="text-4xl font-extrabold text-emerald-600 mb-1">{price}</div>
-        <div className="text-slate-500">{period}</div>
-      </div>
-      <ul className="space-y-3 mb-8">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-center gap-3">
-            <div className="w-5 h-5 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
-            </div>
-            <span className="text-slate-600">{feature}</span>
-          </li>
-        ))}
-      </ul>
-      <button
-        onClick={() => router.push("/register")}
-        className={`w-full py-3 px-6 rounded-xl font-medium transition ${popular ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20' : 'bg-slate-100 hover:bg-slate-200 text-slate-900'}`}
-      >
-        {buttonText}
-      </button>
     </div>
   );
 }
