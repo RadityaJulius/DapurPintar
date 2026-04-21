@@ -22,15 +22,22 @@ export async function POST(req: Request) {
     const userId = decoded.userId;
 
     // Parse request
-    const { ingredients, mood, mealType, cookingTime, language } = await req.json();
+    const { ingredients, mood, mealType, cookingTime, language } =
+      await req.json();
     const cookingTimeInt = parseInt(cookingTime, 10);
 
     if (!ingredients || !mood || !mealType) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
     }
 
     // Language instruction
-    const   langInstruction = language === 'Bahasa' ? 'Please respond in Bahasa Indonesia (Indonesian language).' : 'Please respond in English.';
+    const langInstruction =
+      language === "Bahasa"
+        ? "Please respond in Bahasa Indonesia (Indonesian language)."
+        : "Please respond in English.";
 
     // Construct prompt
     const prompt = `Generate a detailed recipe using the following:
@@ -41,7 +48,7 @@ Meal Type: ${mealType}
 Preferred Cooking Time: ${cookingTimeInt} minutes
 
 Start your response with the recipe name in the following format:
-${language === 'Bahasa' ? '**Nama Resep: [Name]**' : '**Recipe Name: [Name]**'}
+${language === "Bahasa" ? "**Nama Resep: [Name]**" : "**Recipe Name: [Name]**"}
 
 Then provide the detailed recipe including:
 1. Preparation Time
@@ -51,7 +58,7 @@ Then provide the detailed recipe including:
 5. Step-by-step Instructions
 6. Serving Suggestions
 7. End with nutritional notes in the following format:
-${language === 'Bahasa' ? '**Catatan Nutrisi:** [Nutritional notes]' : '**Nutritional Notes:** [Nutritional notes]'}
+${language === "Bahasa" ? "**Catatan Nutrisi:** [Nutritional notes]" : "**Nutritional Notes:** [Nutritional notes]"}
 
 Make it practical, delicious, and tailored to the mood and ingredients.
 
@@ -59,13 +66,14 @@ ${langInstruction}`;
 
     // Call AI
     const response = await openai.chat.completions.create({
-      model: "mistralai/mistral-7b-instruct:free",
+      model: process.env.AI_MODEL_NAME,
       messages: [{ role: "user", content: prompt }],
       max_tokens: 2000,
       temperature: 0.7,
     });
 
-    const recipe = response.choices[0]?.message?.content || "No recipe generated";
+    const recipe =
+      response.choices[0]?.message?.content || "No recipe generated";
 
     // Save to database
     await prisma.recipe.create({
