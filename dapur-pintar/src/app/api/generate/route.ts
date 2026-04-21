@@ -66,7 +66,7 @@ ${langInstruction}`;
 
     // Call AI
     const response = await openai.chat.completions.create({
-      model: process.env.AI_MODEL_NAME,
+      model: process.env.AI_MODEL_NAME || "openai/gpt-oss-120b:free",
       messages: [{ role: "user", content: prompt }],
       max_tokens: 2000,
       temperature: 0.7,
