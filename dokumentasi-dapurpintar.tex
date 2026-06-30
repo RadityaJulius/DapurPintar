@@ -1,0 +1,192 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+
+\title{\textbf{Dokumentasi Perubahan DapurPintar: \\ Implementasi Fitur Dark Mode dan Halaman Admin}}
+\author{
+  Raditya Rafif Rizqullah (NPM 51423172) \\
+  [Nama Penulis 2] (NPM [NPM Penulis 2]) \\
+  [Nama Penulis 3] (NPM [NPM Penulis 3]) \\
+  [Nama Penulis 4] (NPM [NPM Penulis 4])
+}
+\date{5 Mei 2026}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{Pendahuluan}
+DapurPintar adalah sebuah platform berbasis web yang dirancang untuk membantu pengguna dalam mengelola resep masakan dan perencanaan menu harian menggunakan kecerdasan buatan. Website ini dapat diakses secara publik melalui \url{https://dapur-pintar-psnq5xlhs-radityajulius-projects.vercel.app/}, sementara repositori kode sumber terbaru tersimpan di \texttt{C:/Users/Raditya/Documents/GitHub/DapurPintar/dapur-pintar}.
+
+Tugas ini mendokumentasikan pembaruan terbaru yang dilakukan pada repositori pada tanggal 5 Mei 2026, yaitu penambahan fitur \textbf{Dark Mode} dan \textbf{Halaman Admin}, sebagai bagian dari tugas kuliah Informatika Universitas Gunadarma.
+
+\section{Fitur Dark Mode}
+
+\subsection{Ringkasan}
+Fitur Dark Mode ditambahkan ke seluruh halaman aplikasi DapurPintar menggunakan library \texttt{next-themes} dan Tailwind CSS v4. Fitur ini memungkinkan pengguna mengalihkan tampilan antara mode terang (light) dan mode gelap (dark) secara manual, atau mengikuti pengaturan sistem operasi.
+
+\subsection{Implementasi Teknis}
+
+\subsubsection{Instalasi Package}
+\begin{lstlisting}[language=bash]
+npm install next-themes
+\end{lstlisting}
+
+\subsubsection{Konfigurasi CSS (globals.css)}
+Penambahan variabel CSS untuk dark mode dengan mendefinisikan class \texttt{.dark} yang berisi variabel warna alternatif:
+\begin{itemize}
+  \item \texttt{--background: \#0a0a0a} (latar belakang gelap)
+  \item \texttt{--foreground: \#ededed} (teks terang)
+  \item \texttt{--card: \#171717} (kartu gelap)
+  \item \texttt{--primary: \#00cc88} (warna utama versi gelap)
+\end{itemize}
+
+Menggunakan \texttt{@custom-variant dark (\&:where(.dark, .dark *))} untuk mendukung Tailwind v4.
+
+\subsubsection{Theme Provider (ThemeProvider.tsx)}
+File baru \texttt{src/app/ThemeProvider.tsx} dibuat untuk membungkus aplikasi dengan \texttt{NextThemesProvider}:
+\begin{lstlisting}[language=tsx]
+"use client";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+
+export default function ThemeProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
+      {children}
+    </NextThemesProvider>
+  );
+}
+\end{lstlisting}
+
+\subsubsection{Integrasi pada Layout dan Komponen}
+\begin{itemize}
+  \item \textbf{layout.tsx}: Membungkus \texttt{children} dengan \texttt{<ThemeProvider>} dan menambahkan \texttt{suppressHydrationWarning}
+  \item \textbf{Navbar.tsx}: Menambahkan tombol toggle dengan ikon \texttt{Sun} dan \texttt{Moon} dari \texttt{lucide-react}
+  \item \textbf{page.tsx (Landing Page)}: Mengupdate semua elemen dengan \texttt{dark:} variants
+  \item \textbf{login/page.tsx dan register/page.tsx}: Menyesuaikan form dengan mode gelap
+\end{itemize}
+
+\section{Fitur Halaman Admin}
+
+\subsection{Ringkasan}
+Halaman Admin ditambahkan untuk memungkinkan pengelola website memantau statistik penggunaan aplikasi, termasuk jumlah user, recipe yang dihasilkan, dan data lainnya secara real-time.
+
+\subsection{Perubahan Database}
+Penambahan field pada model \texttt{User} di \texttt{prisma/schema.prisma}:
+\begin{lstlisting}
+isAdmin Boolean @default(false)
+\end{lstlisting}
+
+Migrasi database dijalankan dengan perintah:
+\begin{lstlisting}[language=bash]
+npx prisma migrate dev --name add_is_admin
+\end{lstlisting}
+
+\subsection{API Routes Baru}
+
+\subsubsection{POST /api/admin/login}
+\begin{itemize}
+  \item Menerima email dan password
+  \item Memverifikasi user dan mengecek flag \texttt{isAdmin: true}
+  \item Mengembalikan token admin dengan payload JWT \texttt{\{ userId, isAdmin: true \}}
+\end{itemize}
+
+\subsubsection{GET /api/admin/stats}
+Mengembalikan statistik lengkap:
+\begin{itemize}
+  \item \texttt{totalUsers}, \texttt{totalRecipes}, \texttt{totalSavedRecipes}
+  \item \texttt{usersThisWeek}, \texttt{recipesThisWeek}
+  \item \texttt{recipesByMood}, \texttt{recipesByMealType}, \texttt{recipesByLanguage}
+  \item \texttt{userGrowth} (6 bulan terakhir)
+  \item \texttt{recentUsers}, \texttt{recentRecipes}
+\end{itemize}
+
+\subsection{Halaman Admin}
+
+\subsubsection{Admin Layout (src/app/admin/layout.tsx)}
+\begin{itemize}
+  \item Proteksi route: mengecek \texttt{adminToken} di localStorage
+  \item Redirect otomatis ke \texttt{/admin/login} jika belum terautentikasi
+  \item Navbar dengan tombol logout
+\end{itemize}
+
+\subsubsection{Admin Login Page (src/app/admin/login/page.tsx)}
+\begin{itemize}
+  \item Form login dengan email dan password
+  \item POST ke \texttt{/api/admin/login}
+  \item Menyimpan token di localStorage sebagai \texttt{adminToken}
+  \item Redirect ke \texttt{/admin/dashboard} jika sukses
+  \item Mendukung dark mode
+\end{itemize}
+
+\subsubsection{Admin Dashboard Page (src/app/admin/dashboard/page.tsx)}
+Menampilkan:
+\begin{itemize}
+  \item Cards statistik: Total Users, Total Recipes, Saved Recipes, New This Week
+  \item Charts: Recipes by Mood, Recipes by Meal Type, User Growth (6 bulan)
+  \item Tabel: Recent Users (5 terbaru), Recent Recipes (5 terbaru)
+  \item Mendukung dark mode
+\end{itemize}
+
+\subsection{Komponen Pendukung}
+\textbf{StatsCard.tsx}: Komponen card statistik reusable dengan dukungan dark mode (icon, title, value, description).
+
+\subsection{Keamanan}
+\begin{itemize}
+  \item Admin token menggunakan JWT dengan payload \texttt{\{ userId, isAdmin: true \}}
+  \item Semua API \texttt{/api/admin/*} memverifikasi token dan flag \texttt{isAdmin}
+  \item Token disimpan di localStorage (rekomendasi: gunakan HttpOnly cookies untuk produksi)
+\end{itemize}
+
+\section{Struktur File yang Diubah/Dibuat}
+
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{No} & \textbf{File} & \textbf{Status} \\
+\hline
+1 & \texttt{prisma/schema.prisma} & Diubah \\
+2 & \texttt{lib/auth.ts} & Diubah (generateAdminToken) \\
+3 & \texttt{src/app/api/auth/me/route.ts} & Diubah (include isAdmin) \\
+4 & \texttt{src/app/api/admin/login/route.ts} & \textbf{BARU} \\
+5 & \texttt{src/app/api/admin/stats/route.ts} & \textbf{BARU} \\
+6 & \texttt{src/components/admin/StatsCard.tsx} & \textbf{BARU} \\
+7 & \texttt{src/app/admin/layout.tsx} & \textbf{BARU} \\
+8 & \texttt{src/app/admin/login/page.tsx} & \textbf{BARU} \\
+9 & \texttt{src/app/admin/dashboard/page.tsx} & \textbf{BARU} \\
+10 & \texttt{src/app/ThemeProvider.tsx} & \textbf{BARU} \\
+11 & \texttt{src/app/globals.css} & Diubah (dark mode vars) \\
+12 & \texttt{src/app/layout.tsx} & Diubah (ThemeProvider) \\
+13 & \texttt{src/components/Navbar.tsx} & Diubah (toggle button) \\
+14 & \texttt{src/app/page.tsx} & Diubah (dark variants) \\
+\hline
+\end{tabular}
+
+\section{Repositori dan Website}
+Berikut adalah tautan terkait proyek DapurPintar:
+\begin{itemize}
+  \item Website: \url{https://dapur-pintar-psnq5xlhs-radityajulius-projects.vercel.app/}
+  \item Repositori GitHub: \texttt{C:/Users/Raditya/Documents/GitHub/DapurPintar/dapur-pintar}
+  \item Build Status: \texttt{npm run build} - Compiled successfully
+\end{itemize}
+
+\section{Kesimpulan}
+Dokumentasi ini merangkum perubahan yang dilakukan pada proyek DapurPintar pada tanggal 5 Mei 2026. Pembaruan meliputi:
+\begin{enumerate}
+  \item \textbf{Dark Mode}: Implementasi menggunakan next-themes dan Tailwind v4 dengan toggle button di navbar
+  \item \textbf{Halaman Admin}: Sistem autentikasi admin, API statistik, dan dashboard lengkap dengan visualisasi data
+\end{enumerate}
+
+Kedua fitur ini telah diuji dengan \texttt{npm run build} dan berhasil dikompilasi tanpa error. Fitur dark mode meningkatkan kenyamanan visual pengguna, sementara halaman admin memberikan kontrol penuh bagi pengelola website untuk memantau aktivitas pengguna.
+
+\end{document}

@@ -125,10 +125,10 @@ export default function DapurPintarHome() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#009966] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-500">Loading...</p>
+          <p className="text-gray-500 dark:text-gray-400">Loading...</p>
         </div>
       </div>
     );
@@ -140,20 +140,20 @@ export default function DapurPintarHome() {
       <main className="max-w-3xl mx-auto px-6 py-12">
         {/* Header Section */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
             Apa yang kita masak <br />
-            <span className="text-[#009966]">hari ini?</span>
+            <span className="text-[#009966] dark:text-[#00cc88]">hari ini?</span>
           </h1>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 dark:text-gray-300 text-lg">
             Biarkan AI kami mengubah sisa makanan Anda menjadi sebuah mahakarya.
           </p>
         </div>
 
         {/* Input Card */}
-        <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700 overflow-hidden">
           {/* Section 1: Ingredients */}
-          <div className="p-8 border-b border-gray-100">
-            <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">
+          <div className="p-8 border-b border-gray-100 dark:border-gray-700">
+            <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">
               <Search className="w-4 h-4" />
               Apa yang ada di dapur Anda?
             </label>
@@ -161,14 +161,14 @@ export default function DapurPintarHome() {
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
               placeholder="e.g., 2 eggs, leftover rice, soy sauce, and a lonely carrot..."
-              className="w-full h-32 p-4 text-lg rounded-xl bg-gray-50 border-2 border-transparent focus:border-[#009966] focus:bg-white focus:ring-0 transition-all resize-none placeholder:text-gray-300 outline-none"
+              className="w-full h-32 p-4 text-lg rounded-xl bg-gray-50 dark:bg-gray-700 border-2 border-transparent focus:border-[#009966] dark:focus:border-[#00cc88] focus:bg-white dark:focus:bg-gray-600 focus:ring-0 transition-all resize-none placeholder:text-gray-300 dark:placeholder:text-gray-500 dark:text-white outline-none"
             />
           </div>
 
           <div className="p-8 space-y-8">
             {/* Section 2: Mood Selection */}
             <div>
-              <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">
+              <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">
                 <Flame className="w-4 h-4" />
                 Pilih Suasana Hati Anda
               </label>
@@ -182,7 +182,7 @@ export default function DapurPintarHome() {
                       ${
                         mood === m.name
                           ? "bg-[#009966] text-white border-[#009966] shadow-lg shadow-[#009966]/20 transform scale-105"
-                          : "bg-white text-gray-600 border-gray-200 hover:border-[#009966] hover:text-[#009966]"
+                          : "bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-[#009966] hover:text-[#009966] dark:hover:border-[#00cc88] dark:hover:text-[#00cc88]"
                       }
                     `}
                   >
@@ -195,7 +195,7 @@ export default function DapurPintarHome() {
 
             {/* Section 2.5: Language Selection */}
             <div>
-              <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">
+              <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">
                 🗣️ Bahasa
               </label>
               <div className="flex flex-wrap gap-3">
@@ -208,7 +208,7 @@ export default function DapurPintarHome() {
                       ${
                         language === l.name
                           ? "bg-[#009966] text-white border-[#009966] shadow-lg shadow-[#009966]/20 transform scale-105"
-                          : "bg-white text-gray-600 border-gray-200 hover:border-[#009966] hover:text-[#009966]"
+                          : "bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-[#009966] hover:text-[#009966] dark:hover:border-[#00cc88] dark:hover:text-[#00cc88]"
                       }
                     `}
                   >
@@ -222,7 +222,7 @@ export default function DapurPintarHome() {
             {/* Section 3: Meal Type & Time */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">
+                <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">
                   <Utensils className="w-4 h-4" />
                   Jenis Makanan
                 </label>
@@ -235,8 +235,8 @@ export default function DapurPintarHome() {
                         px-4 py-2 rounded-lg text-sm font-medium transition-all
                         ${
                           mealType === type
-                            ? "bg-[#009966]/10 text-[#009966] border border-[#009966]"
-                            : "bg-gray-50 text-gray-600 border border-transparent hover:bg-gray-100"
+                            ? "bg-[#009966]/10 text-[#009966] dark:text-[#00cc88] border border-[#009966] dark:border-[#00cc88]"
+                            : "bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-600"
                         }
                       `}
                     >
@@ -247,7 +247,7 @@ export default function DapurPintarHome() {
               </div>
 
               <div>
-                <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">
+                <label className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">
                   <Clock className="w-4 h-4" />
                   Waktu Memasak
                 </label>
@@ -259,9 +259,9 @@ export default function DapurPintarHome() {
                     step="15"
                     value={cookingTime}
                     onChange={(e) => setCookingTime(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#009966]"
+                    className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#009966] dark:accent-[#00cc88]"
                   />
-                  <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
+                  <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500 mt-2 font-medium">
                     <span>15m</span>
                     <span>30m</span>
                     <span>1h</span>
@@ -273,7 +273,7 @@ export default function DapurPintarHome() {
           </div>
 
           {/* Submit Action */}
-          <div className="p-4 bg-gray-50 border-t border-gray-100">
+          <div className="p-4 bg-gray-50 dark:bg-gray-700/50 border-t border-gray-100 dark:border-gray-700">
             <button
               onClick={handleGenerate}
               disabled={!ingredients || isGenerating}
@@ -281,7 +281,7 @@ export default function DapurPintarHome() {
                 w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all
                 ${
                   !ingredients
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                     : "bg-[#009966] text-white hover:bg-[#008055] shadow-xl shadow-[#009966]/30 hover:shadow-[#009966]/50 transform hover:-translate-y-0.5"
                 }
               `}
@@ -304,12 +304,12 @@ export default function DapurPintarHome() {
 
         {/* Recipe Result */}
         {recipe && (
-          <div className="mt-8 bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+          <div className="mt-8 bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700 overflow-hidden">
             <div className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Your Recipe
               </h2>
-              <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
+              <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed">
                 {recipe}
               </div>
             </div>
@@ -317,7 +317,7 @@ export default function DapurPintarHome() {
         )}
 
         {/* Footer/Trust */}
-        <div className="mt-8 text-center text-gray-400 text-sm">
+        <div className="mt-8 text-center text-gray-400 dark:text-gray-500 text-sm">
           Powered by AI • 10,000+ Recipes Generated
         </div>
       </main>

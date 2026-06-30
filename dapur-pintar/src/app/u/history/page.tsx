@@ -204,10 +204,10 @@ export default function RecipeHistoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#009966] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-500">Memuat...</p>
+          <p className="text-gray-500 dark:text-gray-400">Memuat...</p>
         </div>
       </div>
     );
@@ -215,7 +215,7 @@ export default function RecipeHistoryPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-500 mb-4">{error}</p>
           <button
@@ -234,10 +234,10 @@ export default function RecipeHistoryPage() {
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            Riwayat Resep <span className="text-[#009966]">Anda</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
+            Riwayat Resep <span className="text-[#009966] dark:text-[#00cc88]">Anda</span>
           </h1>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 dark:text-gray-300 text-lg">
             Semua resep lezat yang telah Anda buat.
           </p>
           <button
@@ -251,11 +251,11 @@ export default function RecipeHistoryPage() {
 
         {recipes.length === 0 ? (
           <div className="text-center py-16">
-            <ChefHat className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-700 mb-2">
+            <ChefHat className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200 mb-2">
               Belum ada resep
             </h2>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500 dark:text-gray-400 mb-6">
               Mulai buat resep luar biasa dengan bahan Anda!
             </p>
             <button
@@ -270,48 +270,48 @@ export default function RecipeHistoryPage() {
             {recipes.map((recipe) => (
               <div
                 key={recipe.id}
-                className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden"
+                className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700 overflow-hidden"
               >
                 <div className="p-8">
                   {/* Recipe Details */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                     <div className="flex items-center gap-2">
-                      <Utensils className="w-4 h-4 text-[#009966]" />
-                      <span className="text-sm text-gray-600">
+                      <Utensils className="w-4 h-4 text-[#009966] dark:text-[#00cc88]" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
                         Jenis Makanan:
                       </span>
-                      <span className="font-medium">{recipe.mealType}</span>
+                      <span className="font-medium dark:text-gray-200">{recipe.mealType}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Flame className="w-4 h-4 text-[#009966]" />
-                      <span className="text-sm text-gray-600">Suasana:</span>
-                      <span className="font-medium">{recipe.mood}</span>
+                      <Flame className="w-4 h-4 text-[#009966] dark:text-[#00cc88]" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Suasana:</span>
+                      <span className="font-medium dark:text-gray-200">{recipe.mood}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-[#009966]" />
-                      <span className="text-sm text-gray-600">Waktu:</span>
-                      <span className="font-medium">
+                      <Clock className="w-4 h-4 text-[#009966] dark:text-[#00cc88]" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Waktu:</span>
+                      <span className="font-medium dark:text-gray-200">
                         {recipe.cookingTime} min
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Globe className="w-4 h-4 text-[#009966]" />
-                      <span className="text-sm text-gray-600">Bahasa:</span>
-                      <span className="font-medium">{recipe.language}</span>
+                      <Globe className="w-4 h-4 text-[#009966] dark:text-[#00cc88]" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Bahasa:</span>
+                      <span className="font-medium dark:text-gray-200">{recipe.language}</span>
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <span className="text-sm text-gray-600">Bahan:</span>
-                    <p className="font-medium text-gray-800 mt-1">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Bahan:</span>
+                    <p className="font-medium text-gray-800 dark:text-gray-200 mt-1">
                       {recipe.ingredients}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2 mb-6">
-                    <Calendar className="w-4 h-4 text-[#009966]" />
-                    <span className="text-sm text-gray-600">Dibuat:</span>
-                    <span className="font-medium">
+                    <Calendar className="w-4 h-4 text-[#009966] dark:text-[#00cc88]" />
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Dibuat:</span>
+                    <span className="font-medium dark:text-gray-200">
                       {new Date(recipe.createdAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -320,20 +320,20 @@ export default function RecipeHistoryPage() {
                     <button
                       onClick={() => handleSaveToggle(recipe.id)}
                       disabled={saveLoading.has(recipe.id)}
-                      className="p-2 rounded-full hover:bg-gray-100 transition disabled:opacity-50"
+                      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50"
                     >
                       <Heart
-                        className={`w-6 h-6 ${savedRecipeIds.has(recipe.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
+                        className={`w-6 h-6 ${savedRecipeIds.has(recipe.id) ? 'fill-red-500 text-red-500' : 'text-gray-400 dark:text-gray-500'}`}
                       />
                     </button>
                   </div>
 
                   {/* Recipe Text */}
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-3">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                       Resep
                     </h3>
-                    <div className="whitespace-pre-wrap text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-xl">
+                    <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-700 p-4 rounded-xl">
                       {recipe.recipe}
                     </div>
                   </div>

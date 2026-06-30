@@ -216,10 +216,10 @@ export default function SavedRecipesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#009966] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-500">Memuat...</p>
+          <p className="text-gray-500 dark:text-gray-400">Memuat...</p>
         </div>
       </div>
     );
@@ -227,7 +227,7 @@ export default function SavedRecipesPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-500 mb-4">{error}</p>
           <button
@@ -247,10 +247,10 @@ export default function SavedRecipesPage() {
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-              Resep <span className="text-[#009966]">Tersimpan</span>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
+              Resep <span className="text-[#009966] dark:text-[#00cc88]">Tersimpan</span>
             </h1>
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-500 dark:text-gray-300 text-lg">
               Koleksi resep favorit Anda.
             </p>
           </div>
@@ -265,11 +265,11 @@ export default function SavedRecipesPage() {
 
         {recipes.length === 0 ? (
           <div className="text-center py-16">
-            <ChefHat className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-700 mb-2">
+            <ChefHat className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200 mb-2">
               Belum ada resep tersimpan
             </h2>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500 dark:text-gray-400 mb-6">
               Mulai tambahkan resep favorit Anda!
             </p>
             <button
@@ -284,28 +284,28 @@ export default function SavedRecipesPage() {
             {recipes.map((recipe) => (
               <div
                 key={recipe.id}
-                className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden"
+                className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700 overflow-hidden"
               >
                 <div className="p-8">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                         {recipe.name}
                       </h3>
                       {recipe.notes && (
-                        <p className="text-gray-600 mb-3">{recipe.notes}</p>
+                        <p className="text-gray-600 dark:text-gray-300 mb-3">{recipe.notes}</p>
                       )}
                     </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => openEditModal(recipe)}
-                        className="p-2 text-gray-400 hover:text-[#009966] hover:bg-gray-100 rounded-lg transition"
+                        className="p-2 text-gray-400 hover:text-[#009966] dark:hover:text-[#00cc88] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
                       >
                         <Edit className="w-5 h-5" />
                       </button>
                       <button
                         onClick={() => handleDeleteRecipe(recipe.id)}
-                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-gray-100 rounded-lg transition"
+                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
@@ -313,18 +313,18 @@ export default function SavedRecipesPage() {
                   </div>
 
                   <div className="flex items-center gap-2 mb-6">
-                    <Calendar className="w-4 h-4 text-[#009966]" />
-                    <span className="text-sm text-gray-600">Disimpan:</span>
-                    <span className="font-medium">
+                    <Calendar className="w-4 h-4 text-[#009966] dark:text-[#00cc88]" />
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Disimpan:</span>
+                    <span className="font-medium dark:text-gray-200">
                       {new Date(recipe.createdAt).toLocaleDateString("id-ID")}
                     </span>
                   </div>
 
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                       Resep
                     </h4>
-                    <div className="whitespace-pre-wrap text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-xl">
+                    <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-700 p-4 rounded-xl">
                       {recipe.recipeText || recipe.recipe?.recipe}
                     </div>
                   </div>
@@ -337,53 +337,53 @@ export default function SavedRecipesPage() {
 
       {/* Create Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Tambah Resep Baru</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Tambah Resep Baru</h2>
                 <button
                   onClick={closeModals}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6 dark:text-gray-300" />
                 </button>
               </div>
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                     Nama Resep *
                   </label>
                   <input
                     type="text"
                     value={formName}
                     onChange={(e) => setFormName(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:border-[#009966] focus:ring-0 outline-none"
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#009966] dark:focus:border-[#00cc88] focus:ring-0 outline-none"
                     placeholder="Masukkan nama resep"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                     Catatan (Opsional)
                   </label>
                   <textarea
                     value={formNotes}
                     onChange={(e) => setFormNotes(e.target.value)}
-                    className="w-full h-24 p-3 border border-gray-300 rounded-lg focus:border-[#009966] focus:ring-0 outline-none resize-none"
+                    className="w-full h-24 p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#009966] dark:focus:border-[#00cc88] focus:ring-0 outline-none resize-none"
                     placeholder="Tambahkan catatan atau tips"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                     Teks Resep *
                   </label>
                   <textarea
                     value={formRecipeText}
                     onChange={(e) => setFormRecipeText(e.target.value)}
-                    className="w-full h-64 p-3 border border-gray-300 rounded-lg focus:border-[#009966] focus:ring-0 outline-none resize-none"
+                    className="w-full h-64 p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#009966] dark:focus:border-[#00cc88] focus:ring-0 outline-none resize-none"
                     placeholder="Tulis resep lengkap di sini..."
                   />
                 </div>
@@ -391,7 +391,7 @@ export default function SavedRecipesPage() {
                 <div className="flex justify-end gap-4">
                   <button
                     onClick={closeModals}
-                    className="px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                    className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
                   >
                     Batal
                   </button>
@@ -411,53 +411,53 @@ export default function SavedRecipesPage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Edit Resep</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Resep</h2>
                 <button
                   onClick={closeModals}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6 dark:text-gray-300" />
                 </button>
               </div>
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                     Nama Resep *
                   </label>
                   <input
                     type="text"
                     value={formName}
                     onChange={(e) => setFormName(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:border-[#009966] focus:ring-0 outline-none"
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#009966] dark:focus:border-[#00cc88] focus:ring-0 outline-none"
                     placeholder="Masukkan nama resep"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                     Catatan (Opsional)
                   </label>
                   <textarea
                     value={formNotes}
                     onChange={(e) => setFormNotes(e.target.value)}
-                    className="w-full h-24 p-3 border border-gray-300 rounded-lg focus:border-[#009966] focus:ring-0 outline-none resize-none"
+                    className="w-full h-24 p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#009966] dark:focus:border-[#00cc88] focus:ring-0 outline-none resize-none"
                     placeholder="Tambahkan catatan atau tips"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                     Teks Resep *
                   </label>
                   <textarea
                     value={formRecipeText}
                     onChange={(e) => setFormRecipeText(e.target.value)}
-                    className="w-full h-64 p-3 border border-gray-300 rounded-lg focus:border-[#009966] focus:ring-0 outline-none resize-none"
+                    className="w-full h-64 p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#009966] dark:focus:border-[#00cc88] focus:ring-0 outline-none resize-none"
                     placeholder="Tulis resep lengkap di sini..."
                   />
                 </div>
@@ -465,7 +465,7 @@ export default function SavedRecipesPage() {
                 <div className="flex justify-end gap-4">
                   <button
                     onClick={closeModals}
-                    className="px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                    className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
                   >
                     Batal
                   </button>

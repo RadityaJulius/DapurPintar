@@ -16,3 +16,11 @@ export function generateToken(userId: string) {
     { expiresIn: "7d" }
   );
 }
+
+export function generateAdminToken(userId: string) {
+  return jwt.sign(
+    { userId, isAdmin: true },
+    process.env.JWT_SECRET!,
+    { expiresIn: "7d" }
+  );
+}
